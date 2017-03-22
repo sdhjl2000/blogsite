@@ -23,26 +23,48 @@ public class App
     public static void main( String[] args ) throws InterruptedException {
 
         //ByteBuffer bb = ByteBuffer.allocateDirect(1024*1024*512);
-        Item item=new Item();
-        item.setName("sss");
-        String  str=item.getName();
-        str="dasdasd";
-        System.out.println(item.getName());
+        synnew();
 
     }
 
+    private static void TestFinal() {
+        Item item=new Item("dasdas");
+
+        String  str=item.getName();
+        str="aaa";
+        System.out.println(item.getName());
+    }
+    private static void synnew() throws InterruptedException {
+    Runnable t1=new MyApp2("AAAA");
+        Runnable t2=new MyApp2("BBB");
+       Thread tt1= new Thread(t1);
+        Thread tt2= new Thread(t2);
+        tt1.start();
+        tt2.start();
+        tt1.join();
+        tt2.join();
+    }
     private static void syn() throws InterruptedException {
-        Item item=new Item();
+        Item item=new Item("sss");
         Runnable task2 = () -> {
             try {
-                item.add();
+                for (int i = 0; i < 1000; i++) {
+                    item.putName("AAAA");
+                    Thread.sleep(150);
+                    System.out.println(Thread.currentThread().getName()+"---"+item.getName());
+                }
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         };
         Runnable task1 = () -> {
             try {
-                item.sub();
+                for (int i = 0; i < 1000; i++) {
+                    item.putName("DDDDD");
+                    Thread.sleep(100);
+                    System.out.println(Thread.currentThread().getName()+"---"+item.getName());
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

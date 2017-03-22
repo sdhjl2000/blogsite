@@ -1,7 +1,12 @@
 package com.autohome.juc;
 
 public class Item{
-    private String name;
+    private static  ThreadLocal<String> sname=new ThreadLocal<>();
+    private static  String sname2;
+    private final String name;
+    public Item(String name){
+        this.name=name;
+    }
     public  void add() throws InterruptedException {
         synchronized(this){
         System.out.println("add start");
@@ -15,11 +20,13 @@ public class Item{
         System.out.println("sub end");}
     }
 
+    public  void  putName(String str){
+        //sname2=str;
+        sname.set(str);
+        }
     public String getName() {
-        return name;
+
+        return sname.get();
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 }
